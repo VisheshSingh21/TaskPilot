@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskPilot AI — Meeting to Tasks</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-wrapper">
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar">
+      <div class="logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">TaskPilot <span class="logo-ai">AI</span></span>
+      </div>
+      <nav class="nav">
+        <button class="nav-btn active" data-panel="input">📝 Input</button>
+        <button class="nav-btn" data-panel="dashboard">📊 Dashboard</button>
+        <button class="nav-btn" data-panel="tasks">✅ Tasks</button>
+        <button class="nav-btn" data-panel="blockers">🚧 Blockers</button>
+        <button class="nav-btn" data-panel="followups">🔄 Follow-ups</button>
+        <button class="nav-btn" data-panel="json">{ } JSON</button>
+      </nav>
+      <div class="sidebar-footer">
+        <div id="provider-badge" class="provider-badge">Checking…</div>
+      </div>
+    </aside>
+
+    <!-- ── Main ── -->
+    <main class="main">
+
+      <!-- INPUT PANEL -->
+      <section id="panel-input" class="panel active">
+        <div class="panel-header">
+          <h1>Extract Tasks from Any Source</h1>
+          <p class="subtitle">Paste a meeting transcript, Slack chat, or minutes — AI will extract every task, deadline, owner, and blocker.</p>
+        </div>
+
+        <!-- Source selector -->
+        <div class="source-tabs">
+          <button class="src-btn active" data-source="meeting">🎙️ Meeting</button>
+          <button class="src-btn" data-source="chat">💬 Chat</button>
+          <button class="src-btn" data-source="doc">📄 Document</button>
+        </div>
+
+        <!-- Sample cards -->
+        <div class="sample-row">
+          <p class="sample-label">Quick samples →</p>
+          <button class="sample-card" data-type="meeting">Q3 Sprint Planning</button>
+          <button class="sample-card" data-type="chat">Product Launch Chat</button>
+          <button class="sample-card" data-type="doc">Design Review MOM</button>
+        </div>
+
+        <!-- Textarea -->
+        <div class="textarea-wrap">
+          <textarea id="input-text" placeholder="Paste your meeting transcript, Slack export, or minutes here…" rows="14"></textarea>
+          <div class="char-count"><span id="char-count">0</span> characters</div>
+        </div>
+
+        <!-- Today date -->
+        <div class="date-row">
+          <label for="today-date">Today's date (for deadline parsing):</label>
+          <input type="date" id="today-date" />
+        </div>
+
+        <button id="analyze-btn" class="analyze-btn">
+          <span class="btn-icon">🤖</span>
+          <span class="btn-text">Extract Tasks with AI</span>
+        </button>
+
+        <div id="status-msg" class="status-msg hidden"></div>
+      </section>
+
+      <!-- DASHBOARD PANEL -->
+      <section id="panel-dashboard" class="panel">
+        <div class="panel-header">
+          <h1>Dashboard</h1>
+          <button class="export-btn" id="export-btn">⬇ Export JSON</button>
+        </div>
+        <div id="dashboard-content" class="dashboard-content">
+          <div class="empty-state">Run an analysis to see your dashboard</div>
+        </div>
+      </section>
+
+      <!-- TASKS PANEL -->
+      <section id="panel-tasks" class="panel">
+        <div class="panel-header">
+          <h1>Tasks</h1>
+          <div class="filter-row">
+            <select id="filter-priority">
+              <option value="">All Priorities</option>
+              <option value="critical">🔴 Critical</option>
+              <option value="high">🟠 High</option>
+              <option value="medium">🟡 Medium</option>
+              <option value="low">🟢 Low</option>
+            </select>
+            <select id="filter-status">
+              <option value="">All Statuses</option>
+              <option value="pending">Pending</option>
+              <option value="in_progress">In Progress</option>
+              <option value="done">Done</option>
+            </select>
+            <select id="sort-tasks">
+              <option value="priority">Sort: Priority</option>
+              <option value="deadline">Sort: Deadline</option>
+              <option value="owner">Sort: Owner</option>
+            </select>
+          </div>
+        </div>
+        <div id="tasks-content" class="cards-grid">
+          <div class="empty-state">Run an analysis to see tasks</div>
+        </div>
+      </section>
+
+      <!-- BLOCKERS PANEL -->
+      <section id="panel-blockers" class="panel">
+        <div class="panel-header"><h1>Blockers & Risks</h1></div>
+        <div id="blockers-content" class="cards-grid">
+          <div class="empty-state">Run an analysis to see blockers</div>
+        </div>
+      </section>
+
+      <!-- FOLLOW-UPS PANEL -->
+      <section id="panel-followups" class="panel">
+        <div class="panel-header"><h1>Follow-ups & Decisions</h1></div>
+        <div id="followups-content" class="cards-grid">
+          <div class="empty-state">Run an analysis to see follow-ups</div>
+        </div>
+      </section>
+
+      <!-- JSON PANEL -->
+      <section id="panel-json" class="panel">
+        <div class="panel-header">
+          <h1>Raw JSON Output</h1>
+          <button class="copy-btn" id="copy-json-btn">📋 Copy</button>
+        </div>
+        <pre id="json-content" class="json-view">// Run an analysis to see raw JSON output</pre>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="samples.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
